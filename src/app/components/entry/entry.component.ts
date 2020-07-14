@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { StuffService } from 'src/app/services/stuff.service';
 
 @Component({
   selector: 'app-entry',
@@ -7,15 +8,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class EntryComponent implements OnInit {
 
-  @Output() added = new EventEmitter<string>();
-  constructor() { }
+
+  constructor(private service: StuffService) { }
 
   ngOnInit(): void {
   }
 
   addItem(what: HTMLInputElement): void {
     // console.log(what.value);
-    this.added.emit(what.value);
+    // this.added.emit(what.value);
+    this.service.addItem(what.value);
     what.value = '';
     what.focus();
   }

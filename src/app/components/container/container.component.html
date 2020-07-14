@@ -1,0 +1,12 @@
+<header>
+  <h2>Component Communications</h2>
+</header>
+<div class="row">
+  <div class="col">
+    <app-entry (added)="addTheItem($event)"></app-entry>
+  </div>
+  <div class="col">
+    <app-list [items]="stuff"
+              header='Here is your stuff, yo!'></app-list>
+  </div>
+</div>

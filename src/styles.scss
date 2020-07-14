@@ -2,3 +2,11 @@
 
 $enable-rounded: false;
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+
+pre.debug {
+  border: 2px solid orange;
+  background-color: black;
+  color: green;
+  font-size: 3em;
+}

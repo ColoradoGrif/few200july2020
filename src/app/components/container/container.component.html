@@ -6,7 +6,7 @@
     <app-entry></app-entry>
   </div>
   <div class="col">
-    <app-list [items]="stuff"
+    <app-list [items]="stuff$ | async"
               header='Here is your stuff, yo!'></app-list>
   </div>
 </div>

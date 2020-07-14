@@ -9,7 +9,10 @@ import { ListComponent } from './components/list/list.component';
 import { StuffService } from './services/stuff.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavComponent } from './components/nav/nav.component';
-
+import { CounterComponent } from './components/counter/counter.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './reducers';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,11 +20,14 @@ import { NavComponent } from './components/nav/nav.component';
     EntryComponent,
     ListComponent,
     DashboardComponent,
-    NavComponent
+    NavComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [StuffService],
   bootstrap: [AppComponent]

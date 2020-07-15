@@ -3,3 +3,24 @@
 <span>{{current$ | async}}</span>
 <button (click)="increment()"
         class="btn btn-primary">+</button>
+<div>
+  <button (click)="reset()"
+          [disabled]="resetDisabled$ | async"
+          class="btn btn-danger">Reset</button>
+</div>
+<div class="btn-group"
+     role="group"
+     aria-label="Basic example">
+  <button type="button"
+          (click)="setCountBy(1)"
+          [disabled]="(countingBy$ | async) === 1"
+          class="btn btn-secondary">1</button>
+  <button type="button"
+          (click)="setCountBy(3)"
+          [disabled]="(countingBy$ | async) === 3"
+          class="btn btn-secondary">3</button>
+  <button type="button"
+          (click)="setCountBy(5)"
+          [disabled]="(countingBy$ | async) === 5"
+          class="btn btn-secondary">5</button>
+</div>

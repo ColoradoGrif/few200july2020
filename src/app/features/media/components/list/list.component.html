@@ -1,0 +1,16 @@
+<div *ngIf="media.length === 0"
+     class="alert alert-info">
+  <h3>You don't have any media! Add Some!</h3>
+</div>
+<div class="card"
+     *ngFor="let item of media">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Is a {{ item.format }}</h6>
+    <p class="card-text">{{ item.recommendedBy }} recommended this. {{ item.note }}</p>
+    <a href="#"
+       class="card-link">Card link</a>
+    <a href="#"
+       class="card-link">Another link</a>
+  </div>
+</div>

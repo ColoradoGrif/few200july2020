@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { MediaEntity } from '../reducers/list.reducer';
 import { map } from 'rxjs/operators';
+import { MediaItem } from '../models';
 @Injectable()
 export class MediaDataService {
   private readonly baseUrl: string;
@@ -16,6 +17,16 @@ export class MediaDataService {
     return this.client.get<{ data: MediaEntity[] }>(this.baseUrl).pipe(
       map(response => response.data)
     );
+  }
+
+  addOne(media: MediaEntity): Observable<MediaEntity> {
+    const itemToPost = {
+      title: media.title,
+      format: media.format,
+      recommendedBy: media.recommendedBy,
+      note: media.note
+    };
+    return this.client.post<MediaEntity>(this.baseUrl, itemToPost);
   }
 
 }

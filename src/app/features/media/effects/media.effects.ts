@@ -6,6 +6,21 @@ import { switchMap, map } from 'rxjs/operators';
 @Injectable()
 export class MediaEffects {
 
+  // turns a mediaAdded -> mediaAddedSuccessfully | mediaAddedFailure
+  saveData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.mediaItemAdded),
+      switchMap(originalAction => this.service.addOne(originalAction.payload)
+        .pipe(
+          map(response => actions.mediaItemAddedSuccessfully({
+            originalId: originalAction.payload.id,
+            payload: response
+          }))
+        )
+      )
+    ), { dispatch: true }
+  );
+
   // turns a loadMedia -> loadMediaSucceeded (or loadMediaFailed)
   loadData$ = createEffect(() =>
     this.actions$.pipe(

@@ -35,7 +35,10 @@ const { selectAll: selectMediaEntityArray } = fromList.adapter.getSelectors(sele
 
 export const selectMediaLitems = createSelector(
   selectMediaEntityArray,
-  m => m as MediaItem[]
+  media => media.map(m => ({
+    ...m,
+    isTemporary: m.id.toString().startsWith('T')
+  } as MediaItem))
 );
 
 export const selectMediaLoaded = createSelector(

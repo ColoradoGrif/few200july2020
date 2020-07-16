@@ -2,9 +2,20 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MediaDataService } from '../services/media.data.service';
 import * as actions from '../actions/list.actions';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { MediaEntity } from '../reducers/list.reducer';
 @Injectable()
 export class MediaEffects {
+
+  // turn a mediaConsumed -> api call -> nothing (unless there is an error, but there won't be. because is classroom crap)
+  markConsumed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.mediaConsumed),
+      switchMap((action) => this.service.markConsumed(action.payload))
+    ), { dispatch: false }
+  );
+
 
   // turns a mediaAdded -> mediaAddedSuccessfully | mediaAddedFailure
   saveData$ = createEffect(() =>
@@ -15,7 +26,11 @@ export class MediaEffects {
           map(response => actions.mediaItemAddedSuccessfully({
             originalId: originalAction.payload.id,
             payload: response
-          }))
+          })),
+          catchError(() => of(actions.mediaItemAddedFailure({
+            message: 'Could Not Add This',
+            payload: originalAction.payload
+          })))
         )
       )
     ), { dispatch: true }

@@ -8,6 +8,7 @@ export interface MediaEntity {
   format: string;
   recommendedBy: string;
   note: string;
+  consumedOn: null | string;
 }
 
 export interface ListState extends EntityState<MediaEntity> {
@@ -26,7 +27,14 @@ const reducerFunction = createReducer(
   on(actions.mediaItemAddedSuccessfully, (s, a) => {
     const tempState = adapter.removeOne(a.originalId, s);
     return adapter.addOne(a.payload, tempState);
-  })
+  }),
+  on(actions.mediaItemAddedFailure, (s, a) => adapter.removeOne(a.payload.id, s)),
+  on(actions.mediaConsumed, (s, a) => adapter.updateOne({
+    id: a.payload.id,
+    changes: {
+      consumedOn: a.payload.consumedOn
+    }
+  }, s))
 );
 
 export function reducer(state: ListState = initialState, action: Action): ListState {

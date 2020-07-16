@@ -6,11 +6,16 @@
      *ngFor="let item of media">
   <div class="card-body">
     <h5 class="card-title">{{ item.title}}</h5>
+    <p *ngIf="item.isTemporary"
+       class="badge badge-primary">Saving...</p>
     <h6 class="card-subtitle mb-2 text-muted">Is a {{ item.format }}</h6>
     <p class="card-text">{{ item.recommendedBy }} recommended this. {{ item.note }}</p>
-    <a href="#"
-       class="card-link">Card link</a>
-    <a href="#"
-       class="card-link">Another link</a>
+    <div *ngIf="!item.isTemporary">
+      <button type="button"
+              *ngIf="!item.consumedOn"
+              (click)="markConsumed(item)"
+              class="btn btn-link">Mark This As Consumed</button>
+      <p *ngIf="item.consumedOn">You consumed this on {{ item.consumedOn | date}}</p>
+    </div>
   </div>
 </div>

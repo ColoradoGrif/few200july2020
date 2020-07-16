@@ -29,4 +29,8 @@ export class MediaDataService {
     return this.client.post<MediaEntity>(this.baseUrl, itemToPost);
   }
 
+  markConsumed(media: MediaEntity): Observable<any> {
+    return this.client.post(this.baseUrl + '/consumed', media);
+  }
+
 }

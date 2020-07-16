@@ -1,12 +1,15 @@
 import * as fromCounter from './counter.reducer';
+import * as fromErrors from './errors.reducer';
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 
 export interface AppState {
   counter: fromCounter.CounterState;
+  errors: fromErrors.ErrorsState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  counter: fromCounter.reducer
+  counter: fromCounter.reducer,
+  errors: fromErrors.reducer
 };
 
 
@@ -16,7 +19,7 @@ export const reducers: ActionReducerMap<AppState> = {
 
 // 2. Create a selector per "branch" of your application state.
 const selectCounterBranch = (state: AppState) => state.counter;
-
+const selectErrorBranch = (state: AppState) => state.errors;
 // 3. Any helpers you need.
 
 
@@ -36,4 +39,15 @@ export const selectCurrentCount = createSelector(
 export const selectResetDisabled = createSelector(
   selectCurrentCount,
   c => c === 0
+);
+
+
+export const selectHasError = createSelector(
+  selectErrorBranch,
+  b => b.hasError
+);
+
+export const selectErrorMessage = createSelector(
+  selectErrorBranch,
+  b => b.errorMessage
 );

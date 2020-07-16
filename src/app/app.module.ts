@@ -16,6 +16,7 @@ import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { CounterEffects } from './effects/counter.effects';
 import { MediaModule } from './features/media/media.module';
+import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { MediaModule } from './features/media/media.module';
     ListComponent,
     DashboardComponent,
     NavComponent,
-    CounterComponent
+    CounterComponent,
+    ErrorDisplayComponent
   ],
   imports: [
     BrowserModule,

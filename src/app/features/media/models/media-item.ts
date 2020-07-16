@@ -4,4 +4,6 @@ export interface MediaItem {
   format: string;
   recommendedBy: string;
   note: string;
+  isTemporary: boolean;
+  consumedOn: null | string;
 }

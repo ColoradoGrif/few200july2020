@@ -24,7 +24,7 @@ export const mediaItemAddedSuccessfully = createAction(
 
 export const mediaItemAddedFailure = createAction(
   '[media list] media item added failure',
-  props<{ payload: MediaItem, message: string }>()
+  props<{ payload: MediaEntity, message: string }>()
 );
 // {title: "Some Show", format: "game", recommendedBy: "Bill", note: "Note"}
 
@@ -41,4 +41,17 @@ export const loadMediaSucceeeded = createAction(
 export const loadMediaFailed = createAction(
   '[media list] load media failed',
   props<{ errorMessage: string }>()
+);
+
+
+// consuming media actions
+
+export const mediaConsumed = createAction(
+  '[media list] media consumed',
+  ({ media }: { media: MediaEntity }) => ({
+    payload: {
+      ...media,
+      consumedOn: new Date().toISOString()
+    } as MediaEntity
+  })
 );

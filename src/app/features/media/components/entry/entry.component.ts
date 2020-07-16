@@ -20,6 +20,7 @@ export class EntryComponent implements OnInit {
       recommendedBy: ['', [Validators.required]],
       note: ['', []]
     });
+
   }
 
   get title(): AbstractControl { return this.mediaForm.get('title'); }

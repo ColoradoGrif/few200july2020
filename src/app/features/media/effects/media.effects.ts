@@ -27,10 +27,11 @@ export class MediaEffects {
             originalId: originalAction.payload.id,
             payload: response
           })),
-          catchError(() => of(actions.mediaItemAddedFailure({
-            message: 'Could Not Add This',
+          catchError((r) => of(actions.mediaItemAddedFailure({
+            message: JSON.stringify(r),
             payload: originalAction.payload
-          })))
+          }))
+          )
         )
       )
     ), { dispatch: true }

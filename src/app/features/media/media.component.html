@@ -1,6 +1,13 @@
 <header>
   <h2>Show, Books, Movies, Games Etc.</h2>
 </header>
-<app-entry></app-entry>
-
-<app-list [media]="media$ | async"></app-list>
+<div class="alert alert-success"
+     *ngIf="!(loaded$ | async)">
+  <h3>Loading your data...</h3>
+  <img src="https://media.giphy.com/media/3y0oCOkdKKRi0/giphy.gif"
+       alt="loading">
+</div>
+<div *ngIf="loaded$ | async">
+  <app-entry></app-entry>
+  <app-list [media]="media$ | async"></app-list>
+</div>

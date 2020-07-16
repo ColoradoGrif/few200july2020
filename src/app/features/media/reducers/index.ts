@@ -1,14 +1,17 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromList from './list.reducer';
+import * as fromUiHints from './ui-hints.reducer';
 import { MediaItem } from '../models';
 export const featureName = 'mediaFeature';
 
 export interface MediaState {
   list: fromList.ListState;
+  ui: fromUiHints.UiHintsState;
 }
 
 export const reducers: ActionReducerMap<MediaState> = {
-  list: fromList.reducer
+  list: fromList.reducer,
+  ui: fromUiHints.reducer
 };
 
 
@@ -19,7 +22,10 @@ const selectListBranch = createSelector(
   selectMediaFeature,
   f => f.list
 );
-
+const selectUiBranch = createSelector(
+  selectMediaFeature,
+  f => f.ui
+);
 // 3. Helpers
 // console.log(fromList.adapter.getSelectors(selectListBranch));
 
@@ -30,4 +36,9 @@ const { selectAll: selectMediaEntityArray } = fromList.adapter.getSelectors(sele
 export const selectMediaLitems = createSelector(
   selectMediaEntityArray,
   m => m as MediaItem[]
+);
+
+export const selectMediaLoaded = createSelector(
+  selectUiBranch,
+  b => b.mediaLoaded
 );

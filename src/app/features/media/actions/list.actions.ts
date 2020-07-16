@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { MediaEntity } from '../reducers/list.reducer';
+import { MediaItem } from '../models';
 
 let fakeId = 0;
 
@@ -16,6 +17,15 @@ export const mediaItemAdded = createAction(
   })
 );
 
+export const mediaItemAddedSuccessfully = createAction(
+  '[media list] media item added successfully',
+  props<{ originalId: string, payload: MediaEntity }>()
+);
+
+export const mediaItemAddedFailure = createAction(
+  '[media list] media item added failure',
+  props<{ payload: MediaItem, message: string }>()
+);
 // {title: "Some Show", format: "game", recommendedBy: "Bill", note: "Note"}
 
 // Initiating Action - what you want the effect to do
